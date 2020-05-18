@@ -9,20 +9,77 @@
     <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
     <link href="../static/css/main/animate.min.css" th:href="@{/css/main/animate.min.css}" rel="stylesheet"/>
     <link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
+    <style>
+        #img_path{position:relative;}
+        #A1{font-size:16px;color:purple;
+            position:absolute;
+            top:35px;
+            left:770px;
+        }
+        #A2{font-size:16px;color:purple;
+            position:absolute;
+            top:25px;
+            left:590px;
+        }
+        #A3{font-size:16px;color:purple;
+            position:absolute;
+            top:45px;
+            left:448px;
+        }
+        #A4{font-size:16px;color:purple;
+            position:absolute;
+            top:45px;
+            left:278px;
+        }
+        #A5{font-size:16px;color:purple;
+            position:absolute;
+            top:60px;
+            left:125px;
+        }
+
+        #B1{font-size:16px;color:purple;
+            position:absolute;
+            top:245px;
+            left:152px;
+        }
+        #B2{font-size:16px;color:purple;
+            position:absolute;
+            top:225px;
+            left:343px;
+        }
+        #B3{font-size:16px;color:purple;
+            position:absolute;
+            top:225px;
+            left:520px;
+        }
+        #B4{font-size:16px;color:purple;
+            position:absolute;
+            top:215px;
+            left:682px;
+        }
+        #B5{font-size:16px;color:purple;
+            position:absolute;
+            top:180px;
+            left:835px;
+        }
+    </style>
+    <script th:src="@{/js/echarts.min.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery-1.11.3.min.js}"></script>
 </head>
 
 <body class="gray-bg">
     <div class="wrapper wrapper-content">
-        <button id="btn1" type="button">获得外部的内容</button>
+<!--        <button id="btn1" type="button">获得外部的内容</button>-->
         <div class="row">
             <div class="col-sm-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-success pull-right">日</span>
-                        <h5>车流量</h5>
+                        <h4>车流量</h4>
                     </div>
                     <div class="ibox-content">
-                        <h1 id="text1" class="no-margins">4 888,666</h1>
+                        <h1 id="top1" class="no-margins">4 888,666</h1>
                         <div class="stat-percent font-bold text-success">68% <i class="fa fa-bolt"></i>
                         </div>
                         <small>日车流量</small>
@@ -36,7 +93,7 @@
                         <h5>单路口最大车流量</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">275,800</h1>
+                        <h1 id="top2" class="no-margins">275,800</h1>
                         <div class="stat-percent font-bold text-info">26% <i class="fa fa-level-up"></i>
                         </div>
                         <small>日单路口最大车流量</small>
@@ -50,7 +107,7 @@
                         <h5>车流量</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">106,120</h1>
+                        <h1 id="top3" class="no-margins">106,120</h1>
                         <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i>
                         </div>
                         <small>周车流量</small>
@@ -64,7 +121,7 @@
                         <h5>单路口最大车流量</h5>
                     </div>
                     <div class="ibox-content">
-                        <h1 class="no-margins">80,600</h1>
+                        <h1 id="top4" class="no-margins">80,600</h1>
                         <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
                         </div>
                         <small>周单路口最大车流量</small>
@@ -77,64 +134,40 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>订单</h5>
-                        <div class="pull-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-xs btn-white active">天</button>
-                                <button type="button" class="btn btn-xs btn-white">月</button>
-                                <button type="button" class="btn btn-xs btn-white">年</button>
-                            </div>
-                        </div>
+                        <h5>路段实时车流量</h5>
                     </div>
-                    <div class="ibox-content">
+                    <div class="ibox-content" th:height="30px">
                         <div class="row">
-                            <div class="col-sm-9">
-                                <div class="flot-chart">
-                                    <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                            <div class="col-sm-8">
+                                <div id="img_path">
+                                    <img src="/img/traffic.jpg" alt="traffic" />
+                                    <h1 id="A1">A1</h1>
+                                    <h1 id="A2">A2</h1>
+                                    <h1 id="A3">A3</h1>
+                                    <h1 id="A4">A4</h1>
+                                    <h1 id="A5">A5</h1>
+                                    <h1 id="B1">B1</h1>
+                                    <h1 id="B2">B2</h1>
+                                    <h1 id="B3">B3</h1>
+                                    <h1 id="B4">B4</h1>
+                                    <h1 id="B5">B5</h1>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                <ul class="stat-list">
-                                    <li>
-                                        <h2 class="no-margins">2,346</h2>
-                                        <small>订单总数</small>
-                                        <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>
-                                        </div>
-                                        <div class="progress progress-mini">
-                                            <div style="width: 48%;" class="progress-bar"></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <h2 class="no-margins ">4,422</h2>
-                                        <small>最近一个月订单</small>
-                                        <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>
-                                        </div>
-                                        <div class="progress progress-mini">
-                                            <div style="width: 60%;" class="progress-bar"></div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <h2 class="no-margins ">9,180</h2>
-                                        <small>最近一个月销售额</small>
-                                        <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>
-                                        </div>
-                                        <div class="progress progress-mini">
-                                            <div style="width: 22%;" class="progress-bar"></div>
-                                        </div>
-                                    </li>
-                                 </ul>
+                            <div class="col-sm-4">
+                                <div id="echartDemo" style="width: 450px;height:300px;padding: 0px;margin-left: 30px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>用户项目列表</h5>
+                        <h5>最新抓拍记录</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -148,62 +181,13 @@
                         <table class="table table-hover no-margins">
                             <thead>
                                 <tr>
-                                    <th>状态</th>
-                                    <th>日期</th>
-                                    <th>用户</th>
-                                    <th>值</th>
+                                    <th>车牌号</th>
+                                    <th>抓拍地点</th>
+                                    <th>抓拍时间</th>
+                                    <th>相机id</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 11:20</td>
-                                    <td>青衣5858</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 24%</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="label label-warning">已取消</span>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 10:40</td>
-                                    <td>徐子崴</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 01:30</td>
-                                    <td>姜岚昕</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 54%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 02:20</td>
-                                    <td>武汉大兵哥</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 12%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 09:40</td>
-                                    <td>荆莹儿</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 22%</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="label label-primary">已完成</span>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 04:10</td>
-                                    <td>栾某某</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 66%</td>
-                                </tr>
-                                <tr>
-                                    <td><small>进行中...</small>
-                                    </td>
-                                    <td><i class="fa fa-clock-o"></i> 12:08</td>
-                                    <td>范范范二妮</td>
-                                    <td class="text-navy"> <i class="fa fa-level-up"></i> 23%</td>
-                                </tr>
+                            <tbody id="bottom_table">
                             </tbody>
                         </table>
                     </div>
@@ -212,131 +196,17 @@
          </div>
       </div>
     </div>
-    <script th:src="@{/js/jquery.min.js}"></script>
+
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/ajax/libs/flot/jquery.flot.js}"></script>
     
     <th:block th:include="include :: sparkline-js" />
-    <script type="text/javascript">
-	    $(document).ready(function () {
-	        var data2 = [
-	            [gd(2012, 1, 1), 7], [gd(2012, 1, 2), 6], [gd(2012, 1, 3), 4], [gd(2012, 1, 4), 8],
-	            [gd(2012, 1, 5), 9], [gd(2012, 1, 6), 7], [gd(2012, 1, 7), 5], [gd(2012, 1, 8), 4],
-	            [gd(2012, 1, 9), 7], [gd(2012, 1, 10), 8], [gd(2012, 1, 11), 9], [gd(2012, 1, 12), 6],
-	            [gd(2012, 1, 13), 4], [gd(2012, 1, 14), 5], [gd(2012, 1, 15), 11], [gd(2012, 1, 16), 8],
-	            [gd(2012, 1, 17), 8], [gd(2012, 1, 18), 11], [gd(2012, 1, 19), 11], [gd(2012, 1, 20), 6],
-	            [gd(2012, 1, 21), 6], [gd(2012, 1, 22), 8], [gd(2012, 1, 23), 11], [gd(2012, 1, 24), 13],
-	            [gd(2012, 1, 25), 7], [gd(2012, 1, 26), 9], [gd(2012, 1, 27), 9], [gd(2012, 1, 28), 8],
-	            [gd(2012, 1, 29), 5], [gd(2012, 1, 30), 8], [gd(2012, 1, 31), 25]
-	        ];
-	
-	        var data3 = [
-	            [gd(2012, 1, 1), 800], [gd(2012, 1, 2), 500], [gd(2012, 1, 3), 600], [gd(2012, 1, 4), 700],
-	            [gd(2012, 1, 5), 500], [gd(2012, 1, 6), 456], [gd(2012, 1, 7), 800], [gd(2012, 1, 8), 589],
-	            [gd(2012, 1, 9), 467], [gd(2012, 1, 10), 876], [gd(2012, 1, 11), 689], [gd(2012, 1, 12), 700],
-	            [gd(2012, 1, 13), 500], [gd(2012, 1, 14), 600], [gd(2012, 1, 15), 700], [gd(2012, 1, 16), 786],
-	            [gd(2012, 1, 17), 345], [gd(2012, 1, 18), 888], [gd(2012, 1, 19), 888], [gd(2012, 1, 20), 888],
-	            [gd(2012, 1, 21), 987], [gd(2012, 1, 22), 444], [gd(2012, 1, 23), 999], [gd(2012, 1, 24), 567],
-	            [gd(2012, 1, 25), 786], [gd(2012, 1, 26), 666], [gd(2012, 1, 27), 888], [gd(2012, 1, 28), 900],
-	            [gd(2012, 1, 29), 178], [gd(2012, 1, 30), 555], [gd(2012, 1, 31), 993]
-	        ];
-	
-	
-	        var dataset = [
-	            {
-	                label: "订单数",
-	                data: data3,
-	                color: "#1ab394",
-	                bars: {
-	                    show: true,
-	                    align: "center",
-	                    barWidth: 24 * 60 * 60 * 600,
-	                    lineWidth: 0
-	                }
-	
-	            }, {
-	                label: "付款数",
-	                data: data2,
-	                yaxis: 2,
-	                color: "#464f88",
-	                lines: {
-	                    lineWidth: 1,
-	                    show: true,
-	                    fill: true,
-	                    fillColor: {
-	                        colors: [{
-	                            opacity: 0.2
-	                        }, {
-	                            opacity: 0.2
-	                        }]
-	                    }
-	                },
-	                splines: {
-	                    show: false,
-	                    tension: 0.6,
-	                    lineWidth: 1,
-	                    fill: 0.1
-	                },
-	            }
-	        ];
-	
-	
-	        var options = {
-	            xaxis: {
-	                mode: "time",
-	                tickSize: [3, "day"],
-	                tickLength: 0,
-	                axisLabel: "Date",
-	                axisLabelUseCanvas: true,
-	                axisLabelFontSizePixels: 12,
-	                axisLabelFontFamily: 'Arial',
-	                axisLabelPadding: 10,
-	                color: "#838383"
-	            },
-	            yaxes: [{
-	                    position: "left",
-	                    max: 1070,
-	                    color: "#838383",
-	                    axisLabelUseCanvas: true,
-	                    axisLabelFontSizePixels: 12,
-	                    axisLabelFontFamily: 'Arial',
-	                    axisLabelPadding: 3
-	            }, {
-	                    position: "right",
-	                    clolor: "#838383",
-	                    axisLabelUseCanvas: true,
-	                    axisLabelFontSizePixels: 12,
-	                    axisLabelFontFamily: ' Arial',
-	                    axisLabelPadding: 67
-	            }
-	            ],
-	            legend: {
-	                noColumns: 1,
-	                labelBoxBorderColor: "#000000",
-	                position: "nw"
-	            },
-	            grid: {
-	                hoverable: false,
-	                borderWidth: 0,
-	                color: '#838383'
-	            }
-	        };
-	
-	        function gd(year, month, day) {
-	            return new Date(year, month - 1, day).getTime();
-	        }
-	
-	        var previousPoint = null,
-	            previousLabel = null;
-	
-	        $.plot($("#flot-dashboard-chart"), dataset, options);
-	    });
-    </script>
     <script>
+<!--        按钮点击更新数据-->
         var $in = 888
         $(document).ready(function () {
             $("#btn1").click(function () {
-                $("#text1").html($in)
+                $("#top1").html($in)
                 $in = $in+1
 
                 // 千峰老师讲解的五步Ajax请求
@@ -362,7 +232,7 @@
                 $.get("http://localhost/home/getDayTraffic",function (result) {
                     if(result.code == 0){
                         console.log('接收到服务器数据', result.msg)
-                        $("#text1").html(result.msg)
+                        $("#top1").html(result.msg)
                     }else{
                         layer.msg(result.msg);
                     }
@@ -373,21 +243,61 @@
     </script>
     <script>
         // 轮询方式更新页面部分数据
-        function refreshOnTime(){
-            $.get("http://localhost/home/getDayTraffic",function (result) {
-                if(result.code == 0){
-                    console.log('接收到服务器数据', result.msg)
-                    $("#text1").html(result.msg)
-                }else{
-                    layer.msg(result.msg);
+        function refreshOnTime1(){
+            // $.get("http://localhost/home/getDayTraffic",function (result) {
+            //     if(result.code == 0){
+            //         console.log('接收到服务器数据', result.msg)
+            //         $("#top1").html(result.msg)
+            //     }else{
+            //         layer.msg(result.msg);
+            //     }
+            // })
+            $.ajax({
+                url: "http://localhost/home/getDayTraffic",
+                type : "get",
+                dataType : "json",
+                //data : userData,
+                success : function(data){
+                    $("#top1").html(data['top1'])
+                    $("#top2").html(data['top2'])
+                    $("#top3").html(data['top3'])
+                    $("#top4").html(data['top4'])
                 }
-            })
+            });
         }
         //开始执行自己
-        refreshOnTime();
+        refreshOnTime1();
         setInterval(function() {
-            refreshOnTime();
-        }, 5000);
+            refreshOnTime1();
+        }, 10000);
+    </script>
+    <script>
+        // 轮询方式更新页面部分数据
+        function refreshOnTime2(){
+            $.ajax({
+                url: "http://localhost/home/getRouteTraffic2",
+                type : "get",
+                dataType : "json",
+                //data : userData,
+                success : function(data){
+                    $("#A1").html(data['A1'])
+                    $("#A2").html(data['A2'])
+                    $("#A3").html(data['A3'])
+                    $("#A4").html(data['A4'])
+                    $("#A5").html(data['A5'])
+                    $("#B1").html(data['B1'])
+                    $("#B2").html(data['B2'])
+                    $("#B3").html(data['B3'])
+                    $("#B4").html(data['B4'])
+                    $("#B5").html(data['B5'])
+                }
+            });
+        }
+        //开始执行自己
+        refreshOnTime2();
+        setInterval(function() {
+            refreshOnTime2();
+        }, 3000);
     </script>
     <script>
         $.ajax({
@@ -396,13 +306,6 @@
             dataType : "json",
             //data : userData,
             success : function(data){
-                //转换json字符串为json对象
-
-                //方式二：
-                // var obj2 = JSON.parse(data);
-                //
-                // //转为json对象可以直接点属性
-                // console.log(obj2.name);
                 console.log(data['string'])
                 console.log(data['int'])
                 console.log(data['boolean'])
@@ -410,6 +313,78 @@
                 console.log(data['null'])
             }
         });
+    </script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echartDemo'));
+        // 指定图表的配置项和数据
+        myChart.setOption({
+            tooltip: {
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+            // toolbox: {
+            //     feature: {
+            //         restore: {},
+            //         saveAsImage: {}
+            //     }
+            // },
+            series: [{
+                name: '实时车流量负压',
+                type: 'gauge',
+                detail: { formatter: '{value}%' },
+                data: [{ value: 80, name: '流量压力' }]
+            }]
+        });
+
+        // 轮询方式更新页面部分数据
+        function refreshOnTime3(){
+            $.get("http://localhost/home/getData",function (result) {
+                myChart.setOption({
+                    series: [{
+                        data: [{value: result, name: '流量压力'}]
+                    }]
+                })
+            })
+        }
+        //开始执行自己
+        refreshOnTime3();
+        setInterval(function() {
+            refreshOnTime3();
+        }, 8000);
+
+        setInterval(function() {
+            option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+            myChart.setOption(option, false);
+        }, 2000);
+    </script>
+    <script>
+        function creatTable(){
+            $.ajax({
+                url: "http://localhost/home/getNewRecord",
+                type : "get",
+                dataType : "json",
+                //data : userData,
+                success : function(data){
+                    var records = data["records"]
+                    var tableData=""
+                    for(var len=0; len<records.length; len++){
+                        tableData+="<tr>"
+                        tableData+="<td>"+records[len]["plateNum"]+"</td>"
+                        tableData+="<td>"+records[len]["recLoc"]+"</td>"
+                        tableData+="<td>"+records[len]["recTime"]+"</td>"
+                        tableData+="<td>"+records[len]["recCap"]+"</td>"
+                        tableData+="</tr>"
+                    }
+                    //现在tableData已经生成好了，把他赋值给上面的tbody
+                    $("#bottom_table").html(tableData)
+                }
+            });
+        }
+
+        creatTable()
+        setInterval(function() {
+            creatTable();
+        }, 2000);
     </script>
 </body>
 </html>

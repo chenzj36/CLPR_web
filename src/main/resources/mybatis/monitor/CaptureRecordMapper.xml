@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenzj36.project.monitor.captureRecord.mapper.CaptureRecordMapper">
+    
+    <resultMap type="CaptureRecord" id="CaptureRecordResult">
+        <result property="id"    column="id"    />
+        <result property="capId"    column="cap_id"    />
+        <result property="recTime"    column="rec_time"    />
+        <result property="imgUrl"    column="img_url"    />
+        <result property="plateNum"    column="plate_num"    />
+    </resultMap>
+	
+	<sql id="selectCaptureRecordVo">
+        select id, cap_id, rec_time, img_url, plate_num from capture_record
+    </sql>
+	
+    <select id="selectCaptureRecordList" parameterType="CaptureRecord" resultMap="CaptureRecordResult">
+        <include refid="selectCaptureRecordVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+             <if test="capId != null "> and cap_id = #{capId}</if>
+             <if test="recTime != null "> and rec_time = #{recTime}</if>
+             <if test="imgUrl != null  and imgUrl != '' "> and img_url = #{imgUrl}</if>
+             <if test="plateNum != null  and plateNum != '' "> and plate_num = #{plateNum}</if>
+         </where>
+    </select>
+    
+    <select id="selectCaptureRecordById" parameterType="Integer" resultMap="CaptureRecordResult">
+        <include refid="selectCaptureRecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCaptureRecord" parameterType="CaptureRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into capture_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="capId != null  ">cap_id,</if>
+			<if test="recTime != null  ">rec_time,</if>
+			<if test="imgUrl != null  and imgUrl != ''  ">img_url,</if>
+			<if test="plateNum != null  and plateNum != ''  ">plate_num,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="capId != null  ">#{capId},</if>
+			<if test="recTime != null  ">#{recTime},</if>
+			<if test="imgUrl != null  and imgUrl != ''  ">#{imgUrl},</if>
+			<if test="plateNum != null  and plateNum != ''  ">#{plateNum},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateCaptureRecord" parameterType="CaptureRecord">
+        update capture_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="capId != null  ">cap_id = #{capId},</if>
+            <if test="recTime != null  ">rec_time = #{recTime},</if>
+            <if test="imgUrl != null  and imgUrl != ''  ">img_url = #{imgUrl},</if>
+            <if test="plateNum != null  and plateNum != ''  ">plate_num = #{plateNum},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteCaptureRecordById" parameterType="Integer">
+        delete from capture_record where id = #{id}
+    </delete>
+	
+    <delete id="deleteCaptureRecordByIds" parameterType="String">
+        delete from capture_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

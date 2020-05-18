@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenzj36.project.home.routeTraffic.mapper.RouteTrafficMapper">
+    <resultMap type="Record" id="newRecord">
+        <result property="plateNum"       column="plate_num"      />
+        <result property="recLoc"    column="img_url"   />
+        <result property="recTime"     column="rec_time"    />
+        <result property="recCap"        column="cap_id"        />
+    </resultMap>
+    <select id="getRouteTraffic" resultType="int">
+        SELECT day_traffic FROM link_traffic
+    </select>
+
+    <select id="getNewRecord" resultMap="newRecord">
+        SELECT plate_num,img_url,rec_time,cap_id FROM `capture_record` ORDER BY id DESC LIMIT 10
+    </select>
+
+    <select id="getRecLoc" parameterType="String" resultType="String">
+        SELECT gantry_name FROM gantry_position WHERE gantry_id=#{_gantry}
+    </select>
+
+
+
+
+</mapper>

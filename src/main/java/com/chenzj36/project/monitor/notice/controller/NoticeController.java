@@ -1,4 +1,4 @@
-package com.chenzj36.project.system.notice.controller;
+package com.chenzj36.project.monitor.notice.controller;
 
 import java.util.List;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -15,8 +15,8 @@ import com.chenzj36.framework.aspectj.lang.enums.BusinessType;
 import com.chenzj36.framework.web.controller.BaseController;
 import com.chenzj36.framework.web.domain.AjaxResult;
 import com.chenzj36.framework.web.page.TableDataInfo;
-import com.chenzj36.project.system.notice.domain.Notice;
-import com.chenzj36.project.system.notice.service.INoticeService;
+import com.chenzj36.project.monitor.notice.domain.Notice;
+import com.chenzj36.project.monitor.notice.service.INoticeService;
 
 /**
  * 公告 信息操作处理
@@ -27,12 +27,12 @@ import com.chenzj36.project.system.notice.service.INoticeService;
 @RequestMapping("/system/notice")
 public class NoticeController extends BaseController
 {
-    private String prefix = "system/notice";
+    private String prefix = "monitor/notice";
 
     @Autowired
     private INoticeService noticeService;
 
-    @RequiresPermissions("system:notice:view")
+    @RequiresPermissions("monitor:notice:view")
     @GetMapping()
     public String notice()
     {
@@ -42,7 +42,7 @@ public class NoticeController extends BaseController
     /**
      * 查询公告列表
      */
-    @RequiresPermissions("system:notice:list")
+    @RequiresPermissions("monitor:notice:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(Notice notice)
@@ -64,7 +64,7 @@ public class NoticeController extends BaseController
     /**
      * 新增保存公告
      */
-    @RequiresPermissions("system:notice:add")
+    @RequiresPermissions("monitor:notice:add")
     @Log(title = "通知公告", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -86,7 +86,7 @@ public class NoticeController extends BaseController
     /**
      * 修改保存公告
      */
-    @RequiresPermissions("system:notice:edit")
+    @RequiresPermissions("monitor:notice:edit")
     @Log(title = "通知公告", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -98,7 +98,7 @@ public class NoticeController extends BaseController
     /**
      * 删除公告
      */
-    @RequiresPermissions("system:notice:remove")
+    @RequiresPermissions("monitor:notice:remove")
     @Log(title = "通知公告", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody

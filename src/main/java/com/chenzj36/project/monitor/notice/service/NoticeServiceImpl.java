@@ -1,13 +1,12 @@
-package com.chenzj36.project.system.notice.service;
+package com.chenzj36.project.monitor.notice.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.chenzj36.common.utils.security.ShiroUtils;
 import com.chenzj36.common.utils.text.Convert;
-import com.chenzj36.project.system.notice.mapper.NoticeMapper;
-import com.chenzj36.project.system.notice.domain.Notice;
-import com.chenzj36.project.system.notice.service.INoticeService;
+import com.chenzj36.project.monitor.notice.mapper.NoticeMapper;
+import com.chenzj36.project.monitor.notice.domain.Notice;
 
 /**
  * 公告 服务层实现

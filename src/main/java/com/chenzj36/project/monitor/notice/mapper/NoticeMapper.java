@@ -1,6 +1,6 @@
-package com.chenzj36.project.system.notice.mapper;
+package com.chenzj36.project.monitor.notice.mapper;
 
-import com.chenzj36.project.system.notice.domain.Notice;
+import com.chenzj36.project.monitor.notice.domain.Notice;
 import java.util.List;
 
 /**

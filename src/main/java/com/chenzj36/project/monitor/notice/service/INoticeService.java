@@ -1,6 +1,6 @@
-package com.chenzj36.project.system.notice.service;
+package com.chenzj36.project.monitor.notice.service;
 
-import com.chenzj36.project.system.notice.domain.Notice;
+import com.chenzj36.project.monitor.notice.domain.Notice;
 import java.util.List;
 
 /**

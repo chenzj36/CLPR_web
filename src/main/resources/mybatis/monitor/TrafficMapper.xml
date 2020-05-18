@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenzj36.project.monitor.job.mapper.TrafficMapper">
+
+    <resultMap type="CapRecord" id="CRResult">
+        <id     property="jobId"          column="job_id"          />
+        <result property="jobName"        column="job_name"        />
+        <result property="jobGroup"       column="job_group"       />
+        <result property="methodName"     column="method_name"     />
+        <result property="methodParams"   column="method_params"   />
+        <result property="cronExpression" column="cron_expression" />
+        <result property="misfirePolicy"  column="misfire_policy"  />
+        <result property="concurrent"     column="concurrent"      />
+        <result property="status"         column="status"          />
+        <result property="createBy"       column="create_by"       />
+        <result property="createTime"     column="create_time"     />
+        <result property="updateBy"       column="update_by"       />
+        <result property="updateTime"     column="update_time"     />
+        <result property="remark"         column="remark"          />
+    </resultMap>
+    <select id="getLastOneRecord" resultType="int">
+        SELECT id FROM capture_record ORDER BY id DESC LIMIT 0,1
+    </select>
+
+    <select id="getOneRecord" parameterType="int" resultMap="CRResult">
+        SELECT cap_id,rec_time,plate_num FROM capture_record WHERE id=#{id}
+    </select>
+    <select id="getCapGantry" parameterType="int" resultType="int">
+        SELECT cap_gantry from camera_position WHERE cap_id=#{cap_id}
+    </select>
+    <select id="getPos" parameterType="int" resultType="int">
+        SELECT pos from gantry_position WHERE gantry_id=#{cap_gantry}
+    </select>
+    <select id="getNeg" parameterType="int" resultType="int">
+        SELECT neg from gantry_position WHERE gantry_id=#{cap_gantry}
+    </select>
+    <update id="addLinkTraffic" parameterType="int">
+        UPDATE link_traffic SET day_traffic=day_traffic+1 WHERE lf_id=#{lf_id}
+    </update>
+
+    <select id="getBeforePosGantry" parameterType="int" resultType="int">
+        SELECT gantry_id FROM gantry_position WHERE pos=#{lf_id} AND gantry_id&lt;#{gantry_id}
+    </select>
+    <select id="findUCapID" parameterType="int" resultType="int">
+        SELECT cap_id FROM camera_position WHERE cap_gantry=#{gantry_id}
+    </select>
+    <select id="whetherHaveRec" parameterType="Mapper_1" resultType="int">
+        SELECT id FROM capture_record WHERE rec_time
+        BETWEEN TIMESTAMP(DATE_ADD(#{timestamp}, INTERVAL -30 MINUTE))
+        AND TIMESTAMP(#{timestamp}) AND cap_id IN
+        (
+        <foreach collection="capID" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        ) AND plate_num=#{plate_num}
+    </select>
+    <update id="minusLinkTraffic" parameterType="int">
+        UPDATE link_traffic SET day_traffic=day_traffic-1 WHERE lf_id=#{lf_id}
+    </update>
+    <update id="initLinkTraffic">
+        UPDATE link_traffic SET day_traffic=180 WHERE lf_id=10;
+        UPDATE link_traffic SET day_traffic=30 WHERE lf_id=11;
+        UPDATE link_traffic SET day_traffic=60 WHERE lf_id=12;
+        UPDATE link_traffic SET day_traffic=30 WHERE lf_id=13;
+        UPDATE link_traffic SET day_traffic=30 WHERE lf_id=14;
+        UPDATE link_traffic SET day_traffic=90 WHERE lf_id=20;
+        UPDATE link_traffic SET day_traffic=60 WHERE lf_id=21;
+        UPDATE link_traffic SET day_traffic=90 WHERE lf_id=22;
+        UPDATE link_traffic SET day_traffic=90 WHERE lf_id=23;
+        UPDATE link_traffic SET day_traffic=80 WHERE lf_id=24;
+    </update>
+</mapper>

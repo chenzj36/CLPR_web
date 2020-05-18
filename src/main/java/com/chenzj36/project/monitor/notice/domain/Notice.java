@@ -1,4 +1,4 @@
-package com.chenzj36.project.system.notice.domain;
+package com.chenzj36.project.monitor.notice.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
