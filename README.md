@@ -82,18 +82,17 @@
     ![enter description here](https://aliyunosschenzj.oss-cn-beijing.aliyuncs.com/aliyunoss/1587123121618.png)
     5. cron表达式：http://qqe2.com/cron
 ## 4.2. 文件结构
-com.ruoyi
-|--common==>工具类
-&emsp;&emsp;&emsp;|--constant==>通用常量
-&emsp;&emsp;&emsp;|--exception==>通用异常
-&emsp;&emsp;&emsp;|--utils==>通用类处理
-&emsp;&emsp;&emsp;|--xss==>xss过滤处理
-|--framework==>框架核心
-&emsp;&emsp;&emsp;|--aspectj==>注解实现
-&emsp;&emsp;&emsp;|--config==>系统配置
-&emsp;&emsp;&emsp;|--datasource==>数据权限
-&emsp;&emsp;&emsp;|--manager==>异步处理
-&emsp;&emsp;&emsp;|--shiro==>权限控制
-&emsp;&emsp;&emsp;|--web==>前端控制
-
-
+com.ruoyi  
+|--common==>工具类  
+&emsp;&emsp;&emsp;|--constant==>通用常量  
+&emsp;&emsp;&emsp;|--exception==>通用异常  
+&emsp;&emsp;&emsp;|--utils==>通用类处理  
+&emsp;&emsp;&emsp;|--xss==>xss过滤处理  
+|--framework==>框架核心  
+&emsp;&emsp;&emsp;|--aspectj==>注解实现  
+&emsp;&emsp;&emsp;|--config==>系统配置  
+&emsp;&emsp;&emsp;|--datasource==>数据权限  
+&emsp;&emsp;&emsp;|--manager==>异步处理  
+&emsp;&emsp;&emsp;|--shiro==>权限控制  
+&emsp;&emsp;&emsp;|--web==>前端控制  
+ 
