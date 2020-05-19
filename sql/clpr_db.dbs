@@ -1,0 +1,1163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="DBSchema" id="Project_4a69710" template="Default" database="MySql" >
+	<schema name="clpr_db" catalogname="clpr_db" >
+		<table name="camera_position" >
+			<column name="cap_id" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+				<comment><![CDATA[相机ID]]></comment>
+			</column>
+			<column name="cap_grantry" type="int" length="10" decimal="0" jt="4" >
+				<comment><![CDATA[相机所在门架id]]></comment>
+			</column>
+			<index name="pk_camera_position" unique="PRIMARY_KEY" >
+				<column name="cap_id" />
+			</index>
+		</table>
+		<table name="capture_record" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[记录id]]></comment>
+			</column>
+			<column name="cap_id" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+				<comment><![CDATA[相机id]]></comment>
+			</column>
+			<column name="rec_time" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+				<comment><![CDATA[记录时间]]></comment>
+			</column>
+			<column name="img_url" type="varchar" length="255" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[图像地址]]></comment>
+			</column>
+			<column name="plate_num" type="varchar" length="255" decimal="0" jt="12" >
+				<comment><![CDATA[车牌号]]></comment>
+			</column>
+			<index name="pk_capture_record" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="gantry_position" >
+			<column name="gantry_id" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+				<comment><![CDATA[门架ID]]></comment>
+			</column>
+			<column name="grantry_direction" type="int" length="10" decimal="0" jt="4" >
+				<comment><![CDATA[门架所在路面方向]]></comment>
+			</column>
+			<column name="gantry_name" type="varchar" length="11" decimal="0" jt="12" >
+				<comment><![CDATA[门架方向]]></comment>
+			</column>
+			<column name="pos" type="int" length="10" decimal="0" jt="4" >
+				<comment><![CDATA[增加流量的车辆段]]></comment>
+			</column>
+			<column name="neg" type="int" length="10" decimal="0" jt="4" >
+				<comment><![CDATA[减少流量的车辆段]]></comment>
+			</column>
+			<index name="pk_gantry_position" unique="PRIMARY_KEY" >
+				<column name="gantry_id" />
+			</index>
+		</table>
+		<table name="link_traffic" >
+			<column name="lf_id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[id]]></comment>
+			</column>
+			<column name="link_name" type="varchar" length="100" decimal="0" jt="12" >
+				<comment><![CDATA[路段名称]]></comment>
+			</column>
+			<column name="link_direction" type="int" length="10" decimal="0" jt="4" >
+				<comment><![CDATA[路段方向]]></comment>
+			</column>
+			<column name="day_traffic" type="int" length="10" decimal="0" jt="4" >
+				<comment><![CDATA[路段车流量]]></comment>
+			</column>
+			<index name="pk_link_traffic" unique="PRIMARY_KEY" >
+				<column name="lf_id" />
+			</index>
+		</table>
+		<table name="mock_data_rec" >
+			<column name="id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
+			<column name="plate_num" type="varchar" length="255" decimal="0" jt="12" >
+				<comment><![CDATA[车牌号]]></comment>
+			</column>
+			<column name="img_url" type="varchar" length="255" decimal="0" jt="12" >
+				<comment><![CDATA[图像url]]></comment>
+			</column>
+			<index name="pk_mock_data_rec" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="qrtz_blob_triggers" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_group" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="blob_data" type="blob" length="65535" decimal="0" jt="2004" />
+			<index name="pk_qrtz_blob_triggers" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="trigger_name" />
+				<column name="trigger_group" />
+			</index>
+			<fk name="qrtz_blob_triggers_ibfk_1" to_schema="clpr_db" to_table="qrtz_triggers" >
+				<fk_column name="sched_name" pk="sched_name" />
+				<fk_column name="trigger_name" pk="trigger_name" />
+				<fk_column name="trigger_group" pk="trigger_group" />
+			</fk>
+		</table>
+		<table name="qrtz_calendars" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="calendar_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="calendar" type="blob" length="65535" decimal="0" jt="2004" mandatory="y" />
+			<index name="pk_qrtz_calendars" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="calendar_name" />
+			</index>
+		</table>
+		<table name="qrtz_cron_triggers" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_group" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="cron_expression" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="time_zone_id" type="varchar" length="80" decimal="0" jt="12" />
+			<index name="pk_qrtz_cron_triggers" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="trigger_name" />
+				<column name="trigger_group" />
+			</index>
+			<fk name="qrtz_cron_triggers_ibfk_1" to_schema="clpr_db" to_table="qrtz_triggers" >
+				<fk_column name="sched_name" pk="sched_name" />
+				<fk_column name="trigger_name" pk="trigger_name" />
+				<fk_column name="trigger_group" pk="trigger_group" />
+			</fk>
+		</table>
+		<table name="qrtz_fired_triggers" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="entry_id" type="varchar" length="95" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_group" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="instance_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="fired_time" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" />
+			<column name="sched_time" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" />
+			<column name="priority" type="int" length="10" decimal="0" jt="4" mandatory="y" />
+			<column name="state" type="varchar" length="16" decimal="0" jt="12" mandatory="y" />
+			<column name="job_name" type="varchar" length="200" decimal="0" jt="12" />
+			<column name="job_group" type="varchar" length="200" decimal="0" jt="12" />
+			<column name="is_nonconcurrent" type="varchar" length="1" decimal="0" jt="12" />
+			<column name="requests_recovery" type="varchar" length="1" decimal="0" jt="12" />
+			<index name="pk_qrtz_fired_triggers" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="entry_id" />
+			</index>
+		</table>
+		<table name="qrtz_job_details" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="job_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="job_group" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="description" type="varchar" length="250" decimal="0" jt="12" />
+			<column name="job_class_name" type="varchar" length="250" decimal="0" jt="12" mandatory="y" />
+			<column name="is_durable" type="varchar" length="1" decimal="0" jt="12" mandatory="y" />
+			<column name="is_nonconcurrent" type="varchar" length="1" decimal="0" jt="12" mandatory="y" />
+			<column name="is_update_data" type="varchar" length="1" decimal="0" jt="12" mandatory="y" />
+			<column name="requests_recovery" type="varchar" length="1" decimal="0" jt="12" mandatory="y" />
+			<column name="job_data" type="blob" length="65535" decimal="0" jt="2004" />
+			<index name="pk_qrtz_job_details" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="job_name" />
+				<column name="job_group" />
+			</index>
+		</table>
+		<table name="qrtz_locks" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="lock_name" type="varchar" length="40" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_qrtz_locks" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="lock_name" />
+			</index>
+		</table>
+		<table name="qrtz_paused_trigger_grps" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_group" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<index name="pk_qrtz_paused_trigger_grps" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="trigger_group" />
+			</index>
+		</table>
+		<table name="qrtz_scheduler_state" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="instance_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="last_checkin_time" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" />
+			<column name="checkin_interval" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" />
+			<index name="pk_qrtz_scheduler_state" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="instance_name" />
+			</index>
+		</table>
+		<table name="qrtz_simple_triggers" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_group" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="repeat_count" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" />
+			<column name="repeat_interval" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" />
+			<column name="times_triggered" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" />
+			<index name="pk_qrtz_simple_triggers" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="trigger_name" />
+				<column name="trigger_group" />
+			</index>
+			<fk name="qrtz_simple_triggers_ibfk_1" to_schema="clpr_db" to_table="qrtz_triggers" >
+				<fk_column name="sched_name" pk="sched_name" />
+				<fk_column name="trigger_name" pk="trigger_name" />
+				<fk_column name="trigger_group" pk="trigger_group" />
+			</fk>
+		</table>
+		<table name="qrtz_simprop_triggers" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_group" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="str_prop_1" type="varchar" length="512" decimal="0" jt="12" />
+			<column name="str_prop_2" type="varchar" length="512" decimal="0" jt="12" />
+			<column name="str_prop_3" type="varchar" length="512" decimal="0" jt="12" />
+			<column name="int_prop_1" type="int" length="10" decimal="0" jt="4" />
+			<column name="int_prop_2" type="int" length="10" decimal="0" jt="4" />
+			<column name="long_prop_1" type="bigint" length="19" decimal="0" jt="-5" />
+			<column name="long_prop_2" type="bigint" length="19" decimal="0" jt="-5" />
+			<column name="dec_prop_1" type="decimal" length="13" decimal="4" jt="3" />
+			<column name="dec_prop_2" type="decimal" length="13" decimal="4" jt="3" />
+			<column name="bool_prop_1" type="varchar" length="1" decimal="0" jt="12" />
+			<column name="bool_prop_2" type="varchar" length="1" decimal="0" jt="12" />
+			<index name="pk_qrtz_simprop_triggers" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="trigger_name" />
+				<column name="trigger_group" />
+			</index>
+			<fk name="qrtz_simprop_triggers_ibfk_1" to_schema="clpr_db" to_table="qrtz_triggers" >
+				<fk_column name="sched_name" pk="sched_name" />
+				<fk_column name="trigger_name" pk="trigger_name" />
+				<fk_column name="trigger_group" pk="trigger_group" />
+			</fk>
+		</table>
+		<table name="qrtz_triggers" >
+			<column name="sched_name" type="varchar" length="120" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_group" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="job_name" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="job_group" type="varchar" length="200" decimal="0" jt="12" mandatory="y" />
+			<column name="description" type="varchar" length="250" decimal="0" jt="12" />
+			<column name="next_fire_time" type="bigint" length="19" decimal="0" jt="-5" />
+			<column name="prev_fire_time" type="bigint" length="19" decimal="0" jt="-5" />
+			<column name="priority" type="int" length="10" decimal="0" jt="4" />
+			<column name="trigger_state" type="varchar" length="16" decimal="0" jt="12" mandatory="y" />
+			<column name="trigger_type" type="varchar" length="8" decimal="0" jt="12" mandatory="y" />
+			<column name="start_time" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" />
+			<column name="end_time" type="bigint" length="19" decimal="0" jt="-5" />
+			<column name="calendar_name" type="varchar" length="200" decimal="0" jt="12" />
+			<column name="misfire_instr" type="smallint" length="5" decimal="0" jt="5" />
+			<column name="job_data" type="blob" length="65535" decimal="0" jt="2004" />
+			<index name="pk_qrtz_triggers" unique="PRIMARY_KEY" >
+				<column name="sched_name" />
+				<column name="trigger_name" />
+				<column name="trigger_group" />
+			</index>
+			<index name="sched_name" unique="NORMAL" >
+				<column name="sched_name" />
+				<column name="job_name" />
+				<column name="job_group" />
+			</index>
+			<fk name="qrtz_triggers_ibfk_1" to_schema="clpr_db" to_table="qrtz_job_details" >
+				<fk_column name="sched_name" pk="sched_name" />
+				<fk_column name="job_name" pk="job_name" />
+				<fk_column name="job_group" pk="job_group" />
+			</fk>
+		</table>
+		<table name="sys_config" >
+			<column name="config_id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[参数主键]]></comment>
+			</column>
+			<column name="config_name" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[参数名称]]></comment>
+			</column>
+			<column name="config_key" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[参数键名]]></comment>
+			</column>
+			<column name="config_value" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[参数键值]]></comment>
+			</column>
+			<column name="config_type" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;N&#039;</defo>
+				<comment><![CDATA[系统内置（Y是 N否）]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<column name="remark" type="varchar" length="500" decimal="0" jt="12" >
+				<comment><![CDATA[备注]]></comment>
+			</column>
+			<index name="pk_sys_config" unique="PRIMARY_KEY" >
+				<column name="config_id" />
+			</index>
+		</table>
+		<table name="sys_dept" >
+			<column name="dept_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[部门id]]></comment>
+			</column>
+			<column name="parent_id" type="bigint" length="19" decimal="0" jt="-5" >
+				<defo>0</defo>
+				<comment><![CDATA[父部门id]]></comment>
+			</column>
+			<column name="ancestors" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[祖级列表]]></comment>
+			</column>
+			<column name="dept_name" type="varchar" length="30" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[部门名称]]></comment>
+			</column>
+			<column name="order_num" type="int" length="10" decimal="0" jt="4" >
+				<defo>0</defo>
+				<comment><![CDATA[显示顺序]]></comment>
+			</column>
+			<column name="leader" type="varchar" length="20" decimal="0" jt="12" >
+				<comment><![CDATA[负责人]]></comment>
+			</column>
+			<column name="phone" type="varchar" length="11" decimal="0" jt="12" >
+				<comment><![CDATA[联系电话]]></comment>
+			</column>
+			<column name="email" type="varchar" length="50" decimal="0" jt="12" >
+				<comment><![CDATA[邮箱]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[部门状态（0正常 1停用）]]></comment>
+			</column>
+			<column name="del_flag" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[删除标志（0代表存在 2代表删除）]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<index name="pk_sys_dept" unique="PRIMARY_KEY" >
+				<column name="dept_id" />
+			</index>
+		</table>
+		<table name="sys_dict_data" >
+			<column name="dict_code" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[字典编码]]></comment>
+			</column>
+			<column name="dict_sort" type="int" length="10" decimal="0" jt="4" >
+				<defo>0</defo>
+				<comment><![CDATA[字典排序]]></comment>
+			</column>
+			<column name="dict_label" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[字典标签]]></comment>
+			</column>
+			<column name="dict_value" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[字典键值]]></comment>
+			</column>
+			<column name="dict_type" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[字典类型]]></comment>
+			</column>
+			<column name="css_class" type="varchar" length="100" decimal="0" jt="12" >
+				<comment><![CDATA[样式属性（其他样式扩展）]]></comment>
+			</column>
+			<column name="list_class" type="varchar" length="100" decimal="0" jt="12" >
+				<comment><![CDATA[表格回显样式]]></comment>
+			</column>
+			<column name="is_default" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;N&#039;</defo>
+				<comment><![CDATA[是否默认（Y是 N否）]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[状态（0正常 1停用）]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<column name="remark" type="varchar" length="500" decimal="0" jt="12" >
+				<comment><![CDATA[备注]]></comment>
+			</column>
+			<index name="pk_sys_dict_data" unique="PRIMARY_KEY" >
+				<column name="dict_code" />
+			</index>
+		</table>
+		<table name="sys_dict_type" >
+			<column name="dict_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[字典主键]]></comment>
+			</column>
+			<column name="dict_name" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[字典名称]]></comment>
+			</column>
+			<column name="dict_type" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[字典类型]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[状态（0正常 1停用）]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<column name="remark" type="varchar" length="500" decimal="0" jt="12" >
+				<comment><![CDATA[备注]]></comment>
+			</column>
+			<index name="pk_sys_dict_type" unique="PRIMARY_KEY" >
+				<column name="dict_id" />
+			</index>
+			<index name="dict_type" unique="UNIQUE" >
+				<column name="dict_type" />
+			</index>
+		</table>
+		<table name="sys_job" >
+			<column name="job_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[任务ID]]></comment>
+			</column>
+			<column name="job_name" type="varchar" length="64" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[任务名称]]></comment>
+			</column>
+			<column name="job_group" type="varchar" length="64" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[任务组名]]></comment>
+			</column>
+			<column name="method_name" type="varchar" length="500" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[任务方法]]></comment>
+			</column>
+			<column name="method_params" type="varchar" length="50" decimal="0" jt="12" >
+				<comment><![CDATA[方法参数]]></comment>
+			</column>
+			<column name="cron_expression" type="varchar" length="255" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[cron执行表达式]]></comment>
+			</column>
+			<column name="misfire_policy" type="varchar" length="20" decimal="0" jt="12" >
+				<defo>&#039;3&#039;</defo>
+				<comment><![CDATA[计划执行错误策略（1立即执行 2执行一次 3放弃执行）]]></comment>
+			</column>
+			<column name="concurrent" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;1&#039;</defo>
+				<comment><![CDATA[是否并发执行（0允许 1禁止）]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[状态（0正常 1暂停）]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<column name="remark" type="varchar" length="500" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[备注信息]]></comment>
+			</column>
+			<index name="pk_sys_job" unique="PRIMARY_KEY" >
+				<column name="job_id" />
+				<column name="job_name" />
+				<column name="job_group" />
+			</index>
+		</table>
+		<table name="sys_job_log" >
+			<column name="job_log_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[任务日志ID]]></comment>
+			</column>
+			<column name="job_name" type="varchar" length="64" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[任务名称]]></comment>
+			</column>
+			<column name="job_group" type="varchar" length="64" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[任务组名]]></comment>
+			</column>
+			<column name="method_name" type="varchar" length="500" decimal="0" jt="12" >
+				<comment><![CDATA[任务方法]]></comment>
+			</column>
+			<column name="method_params" type="varchar" length="50" decimal="0" jt="12" >
+				<comment><![CDATA[方法参数]]></comment>
+			</column>
+			<column name="job_message" type="varchar" length="500" decimal="0" jt="12" >
+				<comment><![CDATA[日志信息]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[执行状态（0正常 1失败）]]></comment>
+			</column>
+			<column name="exception_info" type="varchar" length="2000" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[异常信息]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<index name="pk_sys_job_log" unique="PRIMARY_KEY" >
+				<column name="job_log_id" />
+			</index>
+		</table>
+		<table name="sys_logininfor" >
+			<column name="info_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[访问ID]]></comment>
+			</column>
+			<column name="login_name" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[登录账号]]></comment>
+			</column>
+			<column name="ipaddr" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[登录IP地址]]></comment>
+			</column>
+			<column name="login_location" type="varchar" length="255" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[登录地点]]></comment>
+			</column>
+			<column name="browser" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[浏览器类型]]></comment>
+			</column>
+			<column name="os" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[操作系统]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[登录状态（0成功 1失败）]]></comment>
+			</column>
+			<column name="msg" type="varchar" length="255" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[提示消息]]></comment>
+			</column>
+			<column name="login_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[访问时间]]></comment>
+			</column>
+			<index name="pk_sys_logininfor" unique="PRIMARY_KEY" >
+				<column name="info_id" />
+			</index>
+		</table>
+		<table name="sys_menu" >
+			<column name="menu_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[菜单ID]]></comment>
+			</column>
+			<column name="menu_name" type="varchar" length="50" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[菜单名称]]></comment>
+			</column>
+			<column name="parent_id" type="bigint" length="19" decimal="0" jt="-5" >
+				<defo>0</defo>
+				<comment><![CDATA[父菜单ID]]></comment>
+			</column>
+			<column name="order_num" type="int" length="10" decimal="0" jt="4" >
+				<defo>0</defo>
+				<comment><![CDATA[显示顺序]]></comment>
+			</column>
+			<column name="url" type="varchar" length="200" decimal="0" jt="12" >
+				<defo>&#039;#&#039;</defo>
+				<comment><![CDATA[请求地址]]></comment>
+			</column>
+			<column name="target" type="varchar" length="20" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[打开方式（menuItem页签 menuBlank新窗口）]]></comment>
+			</column>
+			<column name="menu_type" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[菜单类型（M目录 C菜单 F按钮）]]></comment>
+			</column>
+			<column name="visible" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[菜单状态（0显示 1隐藏）]]></comment>
+			</column>
+			<column name="perms" type="varchar" length="100" decimal="0" jt="12" >
+				<comment><![CDATA[权限标识]]></comment>
+			</column>
+			<column name="icon" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;#&#039;</defo>
+				<comment><![CDATA[菜单图标]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<column name="remark" type="varchar" length="500" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[备注]]></comment>
+			</column>
+			<index name="pk_sys_menu" unique="PRIMARY_KEY" >
+				<column name="menu_id" />
+			</index>
+		</table>
+		<table name="sys_oper_log" >
+			<comment><![CDATA[登录日志]]></comment>
+			<column name="oper_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[日志主键]]></comment>
+			</column>
+			<column name="title" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[模块标题]]></comment>
+			</column>
+			<column name="business_type" type="int" length="10" decimal="0" jt="4" >
+				<defo>0</defo>
+				<comment><![CDATA[业务类型（0其它 1新增 2修改 3删除）]]></comment>
+			</column>
+			<column name="method" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[方法名称]]></comment>
+			</column>
+			<column name="operator_type" type="int" length="10" decimal="0" jt="4" >
+				<defo>0</defo>
+				<comment><![CDATA[操作类别（0其它 1后台用户 2手机端用户）]]></comment>
+			</column>
+			<column name="oper_name" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[操作人员]]></comment>
+			</column>
+			<column name="dept_name" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[部门名称]]></comment>
+			</column>
+			<column name="oper_url" type="varchar" length="255" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[请求URL]]></comment>
+			</column>
+			<column name="oper_ip" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[主机地址]]></comment>
+			</column>
+			<column name="oper_location" type="varchar" length="255" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[操作地点]]></comment>
+			</column>
+			<column name="oper_param" type="varchar" length="2000" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[请求参数]]></comment>
+			</column>
+			<column name="status" type="int" length="10" decimal="0" jt="4" >
+				<defo>0</defo>
+				<comment><![CDATA[操作状态（0正常 1异常）]]></comment>
+			</column>
+			<column name="error_msg" type="varchar" length="2000" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[错误消息]]></comment>
+			</column>
+			<column name="oper_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[操作时间]]></comment>
+			</column>
+			<index name="pk_sys_oper_log" unique="PRIMARY_KEY" >
+				<column name="oper_id" />
+			</index>
+		</table>
+		<table name="sys_post" >
+			<column name="post_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[岗位ID]]></comment>
+			</column>
+			<column name="post_code" type="varchar" length="64" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[岗位编码]]></comment>
+			</column>
+			<column name="post_name" type="varchar" length="50" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[岗位名称]]></comment>
+			</column>
+			<column name="post_sort" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+				<comment><![CDATA[显示顺序]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" mandatory="y" >
+				<comment><![CDATA[状态（0正常 1停用）]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<column name="remark" type="varchar" length="500" decimal="0" jt="12" >
+				<comment><![CDATA[备注]]></comment>
+			</column>
+			<index name="pk_sys_post" unique="PRIMARY_KEY" >
+				<column name="post_id" />
+			</index>
+		</table>
+		<table name="sys_role" >
+			<comment><![CDATA[角色表]]></comment>
+			<column name="role_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[角色ID]]></comment>
+			</column>
+			<column name="role_name" type="varchar" length="30" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[角色名称]]></comment>
+			</column>
+			<column name="role_key" type="varchar" length="100" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[角色权限字符串]]></comment>
+			</column>
+			<column name="role_sort" type="int" length="10" decimal="0" jt="4" mandatory="y" >
+				<comment><![CDATA[显示顺序]]></comment>
+			</column>
+			<column name="data_scope" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;1&#039;</defo>
+				<comment><![CDATA[数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" mandatory="y" >
+				<comment><![CDATA[角色状态（0正常 1停用）]]></comment>
+			</column>
+			<column name="del_flag" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[删除标志（0代表存在 2代表删除）]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<column name="remark" type="varchar" length="500" decimal="0" jt="12" >
+				<comment><![CDATA[备注]]></comment>
+			</column>
+			<index name="pk_sys_role" unique="PRIMARY_KEY" >
+				<column name="role_id" />
+			</index>
+		</table>
+		<table name="sys_role_dept" >
+			<column name="role_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+				<comment><![CDATA[角色ID]]></comment>
+			</column>
+			<column name="dept_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+				<comment><![CDATA[部门ID]]></comment>
+			</column>
+			<index name="pk_sys_role_dept" unique="PRIMARY_KEY" >
+				<column name="role_id" />
+				<column name="dept_id" />
+			</index>
+		</table>
+		<table name="sys_role_menu" >
+			<column name="role_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+				<comment><![CDATA[角色ID]]></comment>
+			</column>
+			<column name="menu_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+				<comment><![CDATA[菜单ID]]></comment>
+			</column>
+			<index name="pk_sys_role_menu" unique="PRIMARY_KEY" >
+				<column name="role_id" />
+				<column name="menu_id" />
+			</index>
+		</table>
+		<table name="sys_statistics" >
+			<column name="notice_id" type="int" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[公告ID]]></comment>
+			</column>
+			<column name="notice_title" type="varchar" length="50" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[公告标题]]></comment>
+			</column>
+			<column name="notice_type" type="char" length="1" decimal="0" jt="1" mandatory="y" >
+				<comment><![CDATA[公告类型（1通知 2公告）]]></comment>
+			</column>
+			<column name="notice_content" type="varchar" length="2000" decimal="0" jt="12" >
+				<comment><![CDATA[公告内容]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[公告状态（0正常 1关闭）]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<column name="remark" type="varchar" length="255" decimal="0" jt="12" >
+				<comment><![CDATA[备注]]></comment>
+			</column>
+			<index name="pk_sys_statistics" unique="PRIMARY_KEY" >
+				<column name="notice_id" />
+			</index>
+		</table>
+		<table name="sys_user" >
+			<comment><![CDATA[用户信息表]]></comment>
+			<column name="user_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" autoincrement="y" >
+				<comment><![CDATA[用户ID]]></comment>
+			</column>
+			<column name="dept_id" type="bigint" length="19" decimal="0" jt="-5" >
+				<comment><![CDATA[部门ID]]></comment>
+			</column>
+			<column name="login_name" type="varchar" length="30" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[登录账号]]></comment>
+			</column>
+			<column name="user_name" type="varchar" length="30" decimal="0" jt="12" mandatory="y" >
+				<comment><![CDATA[用户昵称]]></comment>
+			</column>
+			<column name="user_type" type="varchar" length="2" decimal="0" jt="12" >
+				<defo>&#039;00&#039;</defo>
+				<comment><![CDATA[用户类型（00系统用户）]]></comment>
+			</column>
+			<column name="email" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[用户邮箱]]></comment>
+			</column>
+			<column name="phonenumber" type="varchar" length="11" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[手机号码]]></comment>
+			</column>
+			<column name="sex" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[用户性别（0男 1女 2未知）]]></comment>
+			</column>
+			<column name="avatar" type="varchar" length="100" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[头像路径]]></comment>
+			</column>
+			<column name="password" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[密码]]></comment>
+			</column>
+			<column name="salt" type="varchar" length="20" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[盐加密]]></comment>
+			</column>
+			<column name="status" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[帐号状态（0正常 1停用）]]></comment>
+			</column>
+			<column name="del_flag" type="char" length="1" decimal="0" jt="1" >
+				<defo>&#039;0&#039;</defo>
+				<comment><![CDATA[删除标志（0代表存在 2代表删除）]]></comment>
+			</column>
+			<column name="login_ip" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[最后登陆IP]]></comment>
+			</column>
+			<column name="login_date" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[最后登陆时间]]></comment>
+			</column>
+			<column name="create_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[创建者]]></comment>
+			</column>
+			<column name="create_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[创建时间]]></comment>
+			</column>
+			<column name="update_by" type="varchar" length="64" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[更新者]]></comment>
+			</column>
+			<column name="update_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[更新时间]]></comment>
+			</column>
+			<column name="remark" type="varchar" length="500" decimal="0" jt="12" >
+				<comment><![CDATA[备注]]></comment>
+			</column>
+			<index name="pk_sys_user" unique="PRIMARY_KEY" >
+				<column name="user_id" />
+			</index>
+		</table>
+		<table name="sys_user_online" >
+			<comment><![CDATA[在线用户表]]></comment>
+			<column name="sessionId" type="varchar" length="50" decimal="0" jt="12" mandatory="y" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[用户会话id]]></comment>
+			</column>
+			<column name="login_name" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[登录账号]]></comment>
+			</column>
+			<column name="dept_name" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[部门名称]]></comment>
+			</column>
+			<column name="ipaddr" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[登录IP地址]]></comment>
+			</column>
+			<column name="login_location" type="varchar" length="255" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[登录地点]]></comment>
+			</column>
+			<column name="browser" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[浏览器类型]]></comment>
+			</column>
+			<column name="os" type="varchar" length="50" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[操作系统]]></comment>
+			</column>
+			<column name="status" type="varchar" length="10" decimal="0" jt="12" >
+				<defo>&#039;&#039;</defo>
+				<comment><![CDATA[在线状态on_line在线off_line离线]]></comment>
+			</column>
+			<column name="start_timestamp" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[session创建时间]]></comment>
+			</column>
+			<column name="last_access_time" type="datetime" length="19" decimal="0" jt="93" >
+				<comment><![CDATA[session最后访问时间]]></comment>
+			</column>
+			<column name="expire_time" type="int" length="10" decimal="0" jt="4" >
+				<defo>0</defo>
+				<comment><![CDATA[超时时间，单位为分钟]]></comment>
+			</column>
+			<index name="pk_sys_user_online" unique="PRIMARY_KEY" >
+				<column name="sessionId" />
+			</index>
+		</table>
+		<table name="sys_user_post" >
+			<column name="user_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+				<comment><![CDATA[用户ID]]></comment>
+			</column>
+			<column name="post_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+				<comment><![CDATA[岗位ID]]></comment>
+			</column>
+			<index name="pk_sys_user_post" unique="PRIMARY_KEY" >
+				<column name="user_id" />
+				<column name="post_id" />
+			</index>
+		</table>
+		<table name="sys_user_role" >
+			<column name="user_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+				<comment><![CDATA[用户ID]]></comment>
+			</column>
+			<column name="role_id" type="bigint" length="19" decimal="0" jt="-5" mandatory="y" >
+				<comment><![CDATA[角色ID]]></comment>
+			</column>
+			<index name="pk_sys_user_role" unique="PRIMARY_KEY" >
+				<column name="user_id" />
+				<column name="role_id" />
+			</index>
+		</table>
+	</schema>
+	<connector name="DBSchema" database="MySql" driver_class="com.mysql.jdbc.Driver" driver_jar="mysql-connector-java-5.1.46.jar" driver_desc="Standard" host="localhost" port="3306" instance="clpr_db" user="root" passwd="Y2hlbg==" />
+	<layout name="Default Layout" id="Layout_4bee63" show_relation="columns" >
+		<entity schema="clpr_db" name="qrtz_blob_triggers" color="BED3F4" x="464" y="576" />
+		<entity schema="clpr_db" name="qrtz_calendars" color="BED3F4" x="288" y="48" />
+		<entity schema="clpr_db" name="qrtz_cron_triggers" color="BED3F4" x="640" y="576" />
+		<entity schema="clpr_db" name="qrtz_job_details" color="BED3F4" x="640" y="208" />
+		<entity schema="clpr_db" name="qrtz_locks" color="BED3F4" x="464" y="64" />
+		<entity schema="clpr_db" name="qrtz_simple_triggers" color="BED3F4" x="272" y="576" />
+		<entity schema="clpr_db" name="qrtz_simprop_triggers" color="BED3F4" x="272" y="240" />
+		<entity schema="clpr_db" name="sys_dept" color="C7F4BE" x="1792" y="336" />
+		<entity schema="clpr_db" name="sys_dict_data" color="C7F4BE" x="1968" y="80" />
+		<entity schema="clpr_db" name="sys_dict_type" color="C7F4BE" x="1792" y="80" />
+		<entity schema="clpr_db" name="sys_job_log" color="F4DDBE" x="864" y="688" />
+		<entity schema="clpr_db" name="sys_logininfor" color="C7F4BE" x="1968" y="416" />
+		<entity schema="clpr_db" name="sys_statistics" color="F4DDBE" x="1056" y="688" />
+		<entity schema="clpr_db" name="sys_user_post" color="C7F4BE" x="1632" y="480" />
+		<entity schema="clpr_db" name="qrtz_triggers" color="BED3F4" x="464" y="208" />
+		<entity schema="clpr_db" name="sys_oper_log" color="F4DDBE" x="1232" y="48" />
+		<entity schema="clpr_db" name="sys_role_dept" color="F4DDBE" x="1056" y="240" />
+		<entity schema="clpr_db" name="sys_post" color="F4DDBE" x="880" y="416" />
+		<entity schema="clpr_db" name="sys_role" color="F4DDBE" x="1056" y="384" />
+		<entity schema="clpr_db" name="sys_role_menu" color="F4DDBE" x="944" y="96" />
+		<entity schema="clpr_db" name="mock_data_rec" color="BEBEF4" x="48" y="720" />
+		<entity schema="clpr_db" name="qrtz_scheduler_state" color="BED3F4" x="464" y="704" />
+		<entity schema="clpr_db" name="qrtz_paused_trigger_grps" color="BEBEF4" x="624" y="784" />
+		<entity schema="clpr_db" name="qrtz_fired_triggers" color="BEBEF4" x="272" y="752" />
+		<entity schema="clpr_db" name="sys_config" color="BEBEF4" x="512" y="1104" />
+		<entity schema="clpr_db" name="link_traffic" color="BEBEF4" x="224" y="1216" />
+		<entity schema="clpr_db" name="gantry_position" color="BEBEF4" x="352" y="1264" />
+		<entity schema="clpr_db" name="sys_user" color="C7F4BE" x="640" y="1104" />
+		<entity schema="clpr_db" name="sys_job" color="F4DDBE" x="1248" y="784" />
+		<entity schema="clpr_db" name="camera_position" color="BEBEF4" x="240" y="1104" />
+		<entity schema="clpr_db" name="capture_record" color="BEBEF4" x="368" y="1104" />
+		<entity schema="clpr_db" name="sys_user_role" color="C7F4BE" x="368" y="1408" />
+		<entity schema="clpr_db" name="sys_user_online" color="C7F4BE" x="496" y="1328" />
+		<entity schema="clpr_db" name="sys_menu" color="F4DDBE" x="224" y="1344" />
+	</layout>
+	<layout name="Sample Layout with Tools" id="Layout_d8a678" show_column_type="y" show_relation="columns" >
+		<entity schema="clpr_db" name="camera_position" color="BEBEF4" x="1040" y="1360" />
+		<entity schema="clpr_db" name="capture_record" color="BEBEF4" x="1216" y="1360" />
+		<entity schema="clpr_db" name="gantry_position" color="BEBEF4" x="992" y="1504" />
+		<entity schema="clpr_db" name="link_traffic" color="BEBEF4" x="816" y="1328" />
+		<entity schema="clpr_db" name="mock_data_rec" color="BEBEF4" x="1040" y="1200" />
+		<entity schema="clpr_db" name="qrtz_blob_triggers" color="BED3F4" x="288" y="608" />
+		<entity schema="clpr_db" name="qrtz_calendars" color="BED3F4" x="48" y="80" />
+		<entity schema="clpr_db" name="qrtz_cron_triggers" color="BED3F4" x="528" y="608" />
+		<entity schema="clpr_db" name="qrtz_fired_triggers" color="BEBEF4" x="1440" y="1040" />
+		<entity schema="clpr_db" name="qrtz_job_details" color="BED3F4" x="528" y="240" />
+		<entity schema="clpr_db" name="qrtz_locks" color="BED3F4" x="288" y="96" />
+		<entity schema="clpr_db" name="qrtz_paused_trigger_grps" color="BEBEF4" x="1696" y="1040" />
+		<entity schema="clpr_db" name="qrtz_scheduler_state" color="BED3F4" x="288" y="816" />
+		<entity schema="clpr_db" name="qrtz_simple_triggers" color="BED3F4" x="48" y="608" />
+		<entity schema="clpr_db" name="qrtz_simprop_triggers" color="BED3F4" x="48" y="272" />
+		<entity schema="clpr_db" name="qrtz_triggers" color="BED3F4" x="288" y="240" />
+		<entity schema="clpr_db" name="sys_config" color="BEBEF4" x="1440" y="1360" />
+		<entity schema="clpr_db" name="sys_dept" color="C7F4BE" x="2464" y="368" />
+		<entity schema="clpr_db" name="sys_dict_data" color="C7F4BE" x="2688" y="112" />
+		<entity schema="clpr_db" name="sys_dict_type" color="C7F4BE" x="2464" y="112" />
+		<entity schema="clpr_db" name="sys_job" color="F4DDBE" x="816" y="656" />
+		<entity schema="clpr_db" name="sys_job_log" color="F4DDBE" x="1072" y="400" />
+		<entity schema="clpr_db" name="sys_logininfor" color="C7F4BE" x="2688" y="448" />
+		<entity schema="clpr_db" name="sys_menu" color="F4DDBE" x="1552" y="352" />
+		<entity schema="clpr_db" name="sys_oper_log" color="F4DDBE" x="1776" y="352" />
+		<entity schema="clpr_db" name="sys_post" color="F4DDBE" x="1552" y="80" />
+		<entity schema="clpr_db" name="sys_role" color="F4DDBE" x="1328" y="352" />
+		<entity schema="clpr_db" name="sys_role_dept" color="F4DDBE" x="1328" y="208" />
+		<entity schema="clpr_db" name="sys_role_menu" color="F4DDBE" x="1152" y="208" />
+		<entity schema="clpr_db" name="sys_statistics" color="F4DDBE" x="1296" y="656" />
+		<entity schema="clpr_db" name="sys_user" color="C7F4BE" x="2064" y="80" />
+		<entity schema="clpr_db" name="sys_user_online" color="C7F4BE" x="2048" y="512" />
+		<entity schema="clpr_db" name="sys_user_post" color="C7F4BE" x="2288" y="512" />
+		<entity schema="clpr_db" name="sys_user_role" color="C7F4BE" x="2288" y="368" />
+		<callout x="288" y="144" pointer="NO" >
+			<comment><![CDATA[This is a sample layout with tools. 
+ You can create multiple layouts with the same or different tables. 
+ Layouts are saved together with the schema to project file and can be later reopen. 
+ Inside layouts double-click any table, column or foreign key to edit. 
+ On the bottom there are three tools: 
+ Relational Data Browse for exploring data from multiple tables and two query editors.]]></comment>
+		</callout>
+		<group name="qrtz_triggers" color="ECF0F7" >
+			<entity schema="clpr_db" name="qrtz_triggers" />
+			<entity schema="clpr_db" name="qrtz_job_details" />
+			<entity schema="clpr_db" name="qrtz_cron_triggers" />
+			<entity schema="clpr_db" name="qrtz_blob_triggers" />
+			<entity schema="clpr_db" name="qrtz_simple_triggers" />
+			<entity schema="clpr_db" name="qrtz_simprop_triggers" />
+			<entity schema="clpr_db" name="qrtz_calendars" />
+			<entity schema="clpr_db" name="qrtz_locks" />
+			<entity schema="clpr_db" name="qrtz_scheduler_state" />
+		</group>
+		<group name="sys_role_menu" color="F7F2EC" >
+			<entity schema="clpr_db" name="sys_role_menu" />
+			<entity schema="clpr_db" name="sys_role_dept" />
+			<entity schema="clpr_db" name="sys_role" />
+			<entity schema="clpr_db" name="sys_menu" />
+			<entity schema="clpr_db" name="sys_statistics" />
+			<entity schema="clpr_db" name="sys_job_log" />
+			<entity schema="clpr_db" name="sys_job" />
+			<entity schema="clpr_db" name="sys_post" />
+			<entity schema="clpr_db" name="sys_oper_log" />
+		</group>
+		<group name="camera_position" color="ECECF7" >
+			<entity schema="clpr_db" name="camera_position" />
+			<entity schema="clpr_db" name="capture_record" />
+			<entity schema="clpr_db" name="gantry_position" />
+			<entity schema="clpr_db" name="link_traffic" />
+			<entity schema="clpr_db" name="mock_data_rec" />
+			<entity schema="clpr_db" name="sys_config" />
+			<entity schema="clpr_db" name="qrtz_fired_triggers" />
+			<entity schema="clpr_db" name="qrtz_paused_trigger_grps" />
+		</group>
+		<group name="sys_dict_type" color="EEF7EC" >
+			<entity schema="clpr_db" name="sys_dict_type" />
+			<entity schema="clpr_db" name="sys_dict_data" />
+			<entity schema="clpr_db" name="sys_dept" />
+			<entity schema="clpr_db" name="sys_user_role" />
+			<entity schema="clpr_db" name="sys_user_post" />
+			<entity schema="clpr_db" name="sys_user_online" />
+			<entity schema="clpr_db" name="sys_user" />
+			<entity schema="clpr_db" name="sys_logininfor" />
+		</group>
+		<script name="Sample SQL Editor" id="Editor_3975de1" language="SQL" >
+			<string><![CDATA[SELECT * 
+FROM
+	clpr_db.qrtz_triggers s;]]></string>
+		</script>
+		<browser id="Browse_4ce6336" name="Sample Relational Data Browse" confirm_updates="y" >
+			<browse_table schema="clpr_db" entity="qrtz_triggers" x="20" y="20" width="400" height="300" >
+				<browse_table schema="clpr_db" entity="qrtz_blob_triggers" fk="qrtz_blob_triggers_ibfk_1" x="440" y="20" width="500" height="350" />
+			</browse_table>
+		</browser>
+		<query id="Query_3750ab1" name="Sample Query Builder" >
+			<query_table schema="clpr_db" name="qrtz_triggers" alias="qt" x="48" y="48" >
+				<column name="sched_name" />
+				<column name="trigger_name" />
+				<column name="trigger_group" />
+				<column name="job_name" />
+				<column name="job_group" />
+				<column name="description" />
+				<column name="next_fire_time" />
+				<column name="prev_fire_time" />
+				<column name="priority" />
+				<column name="trigger_state" />
+				<column name="trigger_type" />
+				<column name="start_time" />
+				<column name="end_time" />
+				<column name="calendar_name" />
+				<column name="misfire_instr" />
+				<column name="job_data" />
+				<query_table schema="clpr_db" name="qrtz_blob_triggers" alias="qbt" x="240" y="48" fk="qrtz_blob_triggers_ibfk_1" type="Inner Join" >
+					<column name="sched_name" />
+					<column name="trigger_name" />
+					<column name="trigger_group" />
+					<column name="blob_data" />
+				</query_table>
+			</query_table>
+		</query>
+	</layout>
+</project>
