@@ -11,7 +11,6 @@
 - .js为未压缩版本，包含完整的注释，形参名完整
 - .min.js为压缩版本，体积小，便于网络上传输
 - head中`<link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>`为导入外部样式表，在html中就可以使用他的css
-- 
 
 ## 1.2. jQuery
 ### 1.2.1. 介绍
